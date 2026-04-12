@@ -71,18 +71,21 @@ state, resource usage, and filesystem details.`,
 				fmt.Fprintf(w, "Exit Code:\t%d\n", *state.ExitCode)
 			}
 
-			fmt.Fprintln(w, "\n--- Configuration ---")
+			fmt.Fprintln(w)
+			fmt.Fprintln(w, "--- Configuration ---")
 			fmt.Fprintf(w, "Command:\t%v\n", state.Config.Command)
 			fmt.Fprintf(w, "Hostname:\t%s\n", state.Config.Hostname)
 			fmt.Fprintf(w, "Rootfs:\t%s\n", state.Config.Filesystem.RootfsPath)
 
-			fmt.Fprintln(w, "\n--- Resource Limits ---")
+			fmt.Fprintln(w)
+			fmt.Fprintln(w, "--- Resource Limits ---")
 			fmt.Fprintf(w, "Memory:\t%s\n", formatBytes(state.Config.Resources.MemoryLimitBytes))
 			fmt.Fprintf(w, "CPU:\t%.2f cores\n",
 				float64(state.Config.Resources.CPUQuota)/float64(state.Config.Resources.CPUPeriod))
 			fmt.Fprintf(w, "PIDs:\t%d\n", state.Config.Resources.PidsLimit)
 
-			fmt.Fprintln(w, "\n--- Network ---")
+			fmt.Fprintln(w)
+			fmt.Fprintln(w, "--- Network ---")
 			fmt.Fprintf(w, "Networking:\t%v\n", state.Config.Network.EnableNetworking)
 			if state.Config.Network.EnableNetworking {
 				fmt.Fprintf(w, "Bridge:\t%s\n", state.Config.Network.BridgeName)
@@ -90,7 +93,8 @@ state, resource usage, and filesystem details.`,
 				fmt.Fprintf(w, "Gateway:\t%s\n", state.Config.Network.GatewayIP)
 			}
 
-			fmt.Fprintln(w, "\n--- Filesystem ---")
+			fmt.Fprintln(w)
+			fmt.Fprintln(w, "--- Filesystem ---")
 			fmt.Fprintf(w, "Overlay Mount:\t%s\n", state.OverlayMountPath)
 			fmt.Fprintf(w, "Upper Layer:\t%s\n", state.OverlayUpperDir)
 			fmt.Fprintf(w, "Cgroup Path:\t%s\n", state.CgroupPath)
@@ -100,7 +104,8 @@ state, resource usage, and filesystem details.`,
 				cgMgr := cgroup.NewManager(state.ID)
 				stats, err := cgMgr.GetStats()
 				if err == nil {
-					fmt.Fprintln(w, "\n--- Live Resource Usage ---")
+					fmt.Fprintln(w)
+					fmt.Fprintln(w, "--- Live Resource Usage ---")
 					fmt.Fprintf(w, "Memory Used:\t%s / %s\n",
 						formatBytes(stats.MemoryUsageBytes),
 						formatBytes(stats.MemoryLimitBytes))
