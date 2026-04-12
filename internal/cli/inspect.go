@@ -109,7 +109,9 @@ state, resource usage, and filesystem details.`,
 				}
 			}
 
-			w.Flush()
+			if err := w.Flush(); err != nil {
+				return err
+			}
 			return nil
 		},
 	}

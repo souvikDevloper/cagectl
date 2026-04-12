@@ -13,7 +13,8 @@
 //   - PIDs: Process count limit via pids.max (fork bomb protection)
 //
 // Each container gets its own cgroup at:
-//   /sys/fs/cgroup/cagectl/<container-id>/
+//
+//	/sys/fs/cgroup/cagectl/<container-id>/
 package cgroup
 
 import (

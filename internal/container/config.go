@@ -12,9 +12,9 @@ import (
 // These are intentionally conservative to prevent runaway containers.
 const (
 	DefaultMemoryLimit = 256 * 1024 * 1024 // 256 MB
-	DefaultCPUQuota    = 100000             // 100ms per period (100% of 1 core)
-	DefaultCPUPeriod   = 100000             // 100ms
-	DefaultPidsLimit   = 64                 // Max 64 processes inside container
+	DefaultCPUQuota    = 100000            // 100ms per period (100% of 1 core)
+	DefaultCPUPeriod   = 100000            // 100ms
+	DefaultPidsLimit   = 64                // Max 64 processes inside container
 )
 
 // State represents the lifecycle state of a container.

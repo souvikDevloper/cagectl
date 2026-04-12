@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/souvikDevloper/cagectl/internal/container"
@@ -29,7 +30,9 @@ func newInitCmd() *cobra.Command {
 			if err := container.RunInit(args); err != nil {
 				// Write error to stderr and exit with error code.
 				// We can't return errors normally because exec() replaces the process.
-				os.Stderr.WriteString("container init error: " + err.Error() + "\n")
+				if _, writeErr := os.Stderr.WriteString("container init error: " + err.Error() + "\n"); writeErr != nil {
+					_, _ = fmt.Fprintf(os.Stderr, "failed to write init error: %v\n", writeErr)
+				}
 				os.Exit(1)
 			}
 			return nil

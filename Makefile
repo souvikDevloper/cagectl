@@ -12,7 +12,7 @@ LDFLAGS=-s -w -X 'github.com/souvikDevloper/cagectl/internal/cli.Version=0.1.0' 
 build:
 	@echo "==> Building $(BINARY_NAME)..."
 	@mkdir -p $(BUILD_DIR)
-	CGO_ENABLED=0 $(GO) build $(GOFLAGS) -ldflags "$(LDFLAGS)" -o $(BUILD_DIR)/$(BINARY_NAME) ./cmd/cagectl
+	$(GO) build $(GOFLAGS) -ldflags "$(LDFLAGS)" -o $(BUILD_DIR)/$(BINARY_NAME) ./cmd/cagectl
 
 ## install: Install binary to /usr/local/bin (requires sudo)
 install: build

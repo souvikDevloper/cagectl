@@ -83,7 +83,9 @@ Use --all to include stopped containers.`,
 				)
 			}
 
-			w.Flush()
+			if err := w.Flush(); err != nil {
+				return err
+			}
 			return nil
 		},
 	}
