@@ -6,8 +6,8 @@ import (
 	"os"
 	"text/tabwriter"
 
-	"github.com/souvikinator/cagectl/internal/cgroup"
-	"github.com/souvikinator/cagectl/internal/container"
+	"github.com/souvikDevloper/cagectl/internal/cgroup"
+	"github.com/souvikDevloper/cagectl/internal/container"
 	"github.com/spf13/cobra"
 )
 
@@ -40,7 +40,7 @@ state, resource usage, and filesystem details.`,
 			// Refresh status
 			if state.Status == container.StateRunning && !container.IsRunning(state.PID) {
 				state.Status = container.StateStopped
-				container.SaveState(state)
+				_ = container.SaveState(state)
 			}
 
 			if jsonOutput {

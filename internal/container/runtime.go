@@ -11,10 +11,10 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/souvikinator/cagectl/internal/cgroup"
-	"github.com/souvikinator/cagectl/internal/filesystem"
-	"github.com/souvikinator/cagectl/internal/namespace"
-	"github.com/souvikinator/cagectl/internal/network"
+	"github.com/souvikDevloper/cagectl/internal/cgroup"
+	"github.com/souvikDevloper/cagectl/internal/filesystem"
+	"github.com/souvikDevloper/cagectl/internal/namespace"
+	"github.com/souvikDevloper/cagectl/internal/network"
 )
 
 // Runtime orchestrates container lifecycle operations.
@@ -131,7 +131,7 @@ func (r *Runtime) Start(state *ContainerState) error {
 	cgMgr := cgroup.NewManager(cfg.ID)
 	if err := cgMgr.AddProcess(pid); err != nil {
 		// Kill the process if we can't add it to the cgroup
-		cmd.Process.Kill()
+		_ = cmd.Process.Kill()
 		return fmt.Errorf("failed to add process to cgroup: %w", err)
 	}
 
@@ -171,7 +171,7 @@ func (r *Runtime) Start(state *ContainerState) error {
 		state.ExitCode = &code
 	}
 
-	SaveState(state)
+	_ = SaveState(state)
 	return err
 }
 
@@ -183,7 +183,7 @@ func (r *Runtime) Stop(state *ContainerState) error {
 
 	if !IsRunning(state.PID) {
 		state.Status = StateStopped
-		SaveState(state)
+		_ = SaveState(state)
 		return nil
 	}
 
@@ -196,7 +196,7 @@ func (r *Runtime) Stop(state *ContainerState) error {
 	if err := process.Signal(syscall.SIGTERM); err != nil {
 		// Process might already be gone
 		state.Status = StateStopped
-		SaveState(state)
+		_ = SaveState(state)
 		return nil
 	}
 
@@ -209,18 +209,18 @@ func (r *Runtime) Stop(state *ContainerState) error {
 		select {
 		case <-timeout:
 			// Force kill with SIGKILL
-			process.Signal(syscall.SIGKILL)
+			_ = process.Signal(syscall.SIGKILL)
 			state.Status = StateStopped
 			now := time.Now()
 			state.FinishedAt = &now
-			SaveState(state)
+			_ = SaveState(state)
 			return nil
 		case <-ticker.C:
 			if !IsRunning(state.PID) {
 				state.Status = StateStopped
 				now := time.Now()
 				state.FinishedAt = &now
-				SaveState(state)
+				_ = SaveState(state)
 				return nil
 			}
 		}

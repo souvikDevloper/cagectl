@@ -125,7 +125,7 @@ See [ARCHITECTURE.md](docs/ARCHITECTURE.md) for a deep technical walkthrough.
 ### Build
 
 ```bash
-git clone https://github.com/souvikinator/cagectl.git
+git clone https://github.com/souvikDevloper/cagectl.git
 cd cagectl
 make build
 ```

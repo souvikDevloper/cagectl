@@ -1,4 +1,4 @@
-module github.com/souvikinator/cagectl
+module github.com/souvikDevloper/cagectl
 
 go 1.22
 

@@ -19,7 +19,7 @@ import (
 	"os"
 	"syscall"
 
-	"github.com/souvikinator/cagectl/internal/namespace"
+	"github.com/souvikDevloper/cagectl/internal/namespace"
 )
 
 // RunInit is called when the binary is re-exec'd with the "init" subcommand.

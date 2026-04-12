@@ -224,14 +224,14 @@ func (m *Manager) ConfigureContainerNetwork(containerPID int) error {
 		return fmt.Errorf("failed to enter container namespace: %w", err)
 	}
 	// IMPORTANT: defer switching back to host namespace
-	defer netns.Set(hostNS)
+	defer func() { _ = netns.Set(hostNS) }()
 
 	// --- Now we're inside the container's network namespace ---
 
 	// Bring up loopback
 	lo, err := netlink.LinkByName("lo")
 	if err == nil {
-		netlink.LinkSetUp(lo)
+		_ = netlink.LinkSetUp(lo)
 	}
 
 	// Find and configure the container-side veth
@@ -360,6 +360,6 @@ func AllocateIP(subnet, gatewayIP string) (string, error) {
 // randomHex generates a random hex string of the given number of bytes.
 func randomHex(n int) string {
 	b := make([]byte, n)
-	rand.Read(b)
+	_, _ = rand.Read(b)
 	return fmt.Sprintf("%x", b)
 }

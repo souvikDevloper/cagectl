@@ -7,7 +7,7 @@ import (
 	"text/tabwriter"
 	"time"
 
-	"github.com/souvikinator/cagectl/internal/container"
+	"github.com/souvikDevloper/cagectl/internal/container"
 	"github.com/spf13/cobra"
 )
 
@@ -50,7 +50,7 @@ Use --all to include stopped containers.`,
 				// Refresh running status
 				if state.Status == container.StateRunning && !container.IsRunning(state.PID) {
 					state.Status = container.StateStopped
-					container.SaveState(state)
+					_ = container.SaveState(state)
 				}
 
 				// Filter by status

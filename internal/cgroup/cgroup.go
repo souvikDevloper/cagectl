@@ -74,7 +74,7 @@ func (m *Manager) Setup() error {
 		if contains(availableControllers, controller) {
 			// First enable in the root's subtree_control so cagectl cgroup can use it
 			rootSubtree := filepath.Join(CgroupV2Root, "cgroup.subtree_control")
-			writeFile(rootSubtree, "+"+controller) // Best effort at root level
+			_ = writeFile(rootSubtree, "+"+controller) // Best effort at root level
 
 			// Then enable in cagectl's subtree_control
 			if err := writeFile(subtreeControl, "+"+controller); err != nil {

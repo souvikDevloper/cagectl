@@ -4,9 +4,9 @@ BINARY_NAME=cagectl
 BUILD_DIR=bin
 GO=go
 GOFLAGS=-trimpath
-LDFLAGS=-s -w -X 'github.com/souvikinator/cagectl/internal/cli.Version=0.1.0' \
-        -X 'github.com/souvikinator/cagectl/internal/cli.BuildDate=$(shell date -u +%Y-%m-%dT%H:%M:%SZ)' \
-        -X 'github.com/souvikinator/cagectl/internal/cli.GitCommit=$(shell git rev-parse --short HEAD 2>/dev/null || echo "unknown")'
+LDFLAGS=-s -w -X 'github.com/souvikDevloper/cagectl/internal/cli.Version=0.1.0' \
+        -X 'github.com/souvikDevloper/cagectl/internal/cli.BuildDate=$(shell date -u +%Y-%m-%dT%H:%M:%SZ)' \
+        -X 'github.com/souvikDevloper/cagectl/internal/cli.GitCommit=$(shell git rev-parse --short HEAD 2>/dev/null || echo "unknown")'
 
 ## build: Compile the binary
 build:
