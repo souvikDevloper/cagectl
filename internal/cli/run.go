@@ -94,7 +94,7 @@ Resource limits are enforced via cgroup v2 controllers.`,
 
 			if err := rt.Start(state); err != nil {
 				// Clean up on failure
-				rt.Remove(state)
+				_ = rt.Remove(state)
 				return fmt.Errorf("failed to start container: %w", err)
 			}
 
@@ -116,7 +116,7 @@ Resource limits are enforced via cgroup v2 controllers.`,
 	cmd.Flags().Int64Var(&pids, "pids", 0, "Maximum number of processes")
 	cmd.Flags().BoolVar(&noNet, "no-net", false, "Disable networking")
 
-	cmd.MarkFlagRequired("rootfs")
+	_ = cmd.MarkFlagRequired("rootfs")
 
 	return cmd
 }
