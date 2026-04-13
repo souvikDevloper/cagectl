@@ -211,14 +211,14 @@ func (m *Manager) ConfigureContainerNetwork(containerPID int) error {
 	if err != nil {
 		return fmt.Errorf("failed to get host network namespace: %w", err)
 	}
-	defer hostNS.Close()
+	defer func() { _ = hostNS.Close() }()
 
 	// Enter the container's network namespace
 	containerNS, err := netns.GetFromPid(containerPID)
 	if err != nil {
 		return fmt.Errorf("failed to get container namespace for PID %d: %w", containerPID, err)
 	}
-	defer containerNS.Close()
+	defer func() { _ = containerNS.Close() }()
 
 	if err := netns.Set(containerNS); err != nil {
 		return fmt.Errorf("failed to enter container namespace: %w", err)

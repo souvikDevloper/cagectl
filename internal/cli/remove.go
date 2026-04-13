@@ -39,7 +39,7 @@ unless --force is used.`,
 			for _, ref := range args {
 				state, err := container.FindByIDOrName(ref)
 				if err != nil {
-					fmt.Fprintf(cmd.ErrOrStderr(), "Error: %v\n", err)
+					cmd.PrintErrf("Error: %v\n", err)
 					lastErr = err
 					continue
 				}
@@ -53,7 +53,7 @@ unless --force is used.`,
 				}
 
 				if err := rt.Remove(state); err != nil {
-					fmt.Fprintf(cmd.ErrOrStderr(), "Error removing %s: %v\n", ref, err)
+					cmd.PrintErrf("Error: %v\n", err)
 					lastErr = err
 					continue
 				}

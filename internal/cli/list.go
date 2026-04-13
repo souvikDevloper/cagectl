@@ -44,7 +44,9 @@ Use --all to include stopped containers.`,
 
 			// Tab-aligned table output
 			w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', 0)
-			fmt.Fprintln(w, "CONTAINER ID\tNAME\tSTATUS\tPID\tCREATED\tCOMMAND")
+			if _, err := fmt.Fprintln(w, "CONTAINER ID\tNAME\tSTATUS\tPID\tCREATED\tCOMMAND"); err != nil {
+				return err
+			}
 
 			for _, state := range states {
 				// Refresh running status
@@ -73,14 +75,10 @@ Use --all to include stopped containers.`,
 					pidStr = fmt.Sprintf("%d", state.PID)
 				}
 
-				fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%s\t%s\n",
-					shortID(state.ID),
-					state.Name,
-					colorStatus(state.Status),
-					pidStr,
-					created,
-					cmdStr,
-				)
+				if _, err := fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%s\t%s\n",
+					id, name, status, pid, created, command); err != nil {
+					return err
+				}
 			}
 
 			if err := w.Flush(); err != nil {
