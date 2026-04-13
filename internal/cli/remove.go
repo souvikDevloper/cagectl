@@ -46,8 +46,9 @@ unless --force is used.`,
 
 				// Check if running and force flag
 				if state.Status == container.StateRunning && !force {
-					fmt.Fprintf(cmd.ErrOrStderr(),
-						"Error: container %s is running. Use --force to remove it.\n", ref)
+					cmd.PrintErrf(
+						"Error: container %s is running. Use --force to remove it.\n", ref,
+					)
 					lastErr = fmt.Errorf("container is running")
 					continue
 				}

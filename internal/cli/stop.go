@@ -36,13 +36,13 @@ it is forcefully killed with SIGKILL.`,
 			for _, ref := range args {
 				state, err := container.FindByIDOrName(ref)
 				if err != nil {
-					fmt.Fprintf(cmd.ErrOrStderr(), "Error: %v\n", err)
+					cmd.PrintErrf("Error: %v\n", err)
 					lastErr = err
 					continue
 				}
 
 				if err := rt.Stop(state); err != nil {
-					fmt.Fprintf(cmd.ErrOrStderr(), "Error stopping %s: %v\n", ref, err)
+					cmd.PrintErrf("Error stopping %s: %v\n", ref, err)
 					lastErr = err
 					continue
 				}
