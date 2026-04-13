@@ -38,7 +38,9 @@ Use --all to include stopped containers.`,
 			}
 
 			if len(states) == 0 {
-				fmt.Println("No containers found.")
+				if _, err := fmt.Fprintln(os.Stdout, "No containers found."); err != nil {
+					return err
+				}
 				return nil
 			}
 
@@ -76,7 +78,13 @@ Use --all to include stopped containers.`,
 				}
 
 				if _, err := fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%s\t%s\n",
-					id, name, status, pid, created, command); err != nil {
+					shortID(state.ID),
+					state.Name,
+					colorStatus(state.Status),
+					pidStr,
+					created,
+					cmdStr,
+				); err != nil {
 					return err
 				}
 			}
